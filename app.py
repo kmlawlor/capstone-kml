@@ -5,7 +5,7 @@ import json
 from flask_cors import CORS
 
 from models import db_drop_and_create_all, setup_db, Actor, Movie
-from auth.auth import AuthError, requires_auth
+from auth import AuthError, requires_auth
 
 app = Flask(__name__)
 setup_db(app)
