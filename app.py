@@ -34,7 +34,7 @@ def retrieve_actors(payload):
     current_actors = Actor.query.order_by(Actor.id).all()
 
     if len(current_actors) == 0:
-        print("None")
+        print("No actorse")
         abort(404)
 
     print('Actors Retrieved:' + str(len(Actor.query.all()))) 
@@ -181,6 +181,7 @@ def movies_update(payload,movie_id):
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
 
         if movie is None:
+            print("No movies")
             abort(400)
 
         movie.title = new_title
