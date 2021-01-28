@@ -95,7 +95,7 @@ def actors_update(payload,actor_id):
         actor.update()
 
         #return actor.name + " updated"
-        return retrieve_actors() 
+        return retrieve_actors(payload) 
 
     except Exception as e:
         print(e)
@@ -115,7 +115,7 @@ def delete_actor(payload,actor_id):
 
         actor.delete()
 
-        return retrieve_actors()
+        return retrieve_actors(payload)
 
     except Exception as e:
         print(e)
@@ -188,7 +188,7 @@ def movies_update(payload,movie_id):
         movie.release_date = new_release_date
         movie.update()
 
-        return retrieve_movies() 
+        return retrieve_movies(payload) 
 
     except Exception as e:
         print(e)
@@ -208,7 +208,7 @@ def delete_movie(payload,movie_id):
 
         movie.delete()
 
-        return retrieve_movies()
+        return retrieve_movies(payload)
 
     except Exception as e:
         print(e)
@@ -246,7 +246,7 @@ def actor_not_found(error):
     }), 408
 
 @app.errorhandler(414)
-def no_actors(error):
+def no_movies(error):
     return jsonify({
         "success": False,
         "error": 414, 
@@ -254,7 +254,7 @@ def no_actors(error):
     }), 414
 
 @app.errorhandler(418)
-def actor_not_found(error):
+def movie_not_found(error):
     return jsonify({
         "success": False,
         "error":418,

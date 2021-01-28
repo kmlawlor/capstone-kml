@@ -56,7 +56,6 @@ def get_token_auth_header():
         }, 401)
 
     token = parts[1]
-    print("leaving")
     return token
 
 '''
@@ -110,7 +109,6 @@ def verify_decode_jwt(token):
                 issuer='https://' + AUTH0_DOMAIN + '/'
             )
 
-            print(payload)
             return payload
 
         except jwt.ExpiredSignatureError:
