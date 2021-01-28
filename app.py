@@ -47,7 +47,6 @@ def retrieve_actors(payload):
         d.name = actor.name
         d.age = actor.age
         d.gender = actor.gender
-        print(d)
         actors.append(d) 
         strTable += "<tr><td>" + str(actor.id) + "</td><td>" + actor.name  + "</td><td>" +  actor.age  + "</td><td>" + actor.gender  + "</td></tr>" 
 
@@ -65,11 +64,8 @@ def create_actor(payload):
     new_gender = request.form.get('gender')
 
     try:
-        print("Trying")
         actor = Actor(name=new_name, age=new_age, gender=new_gender)
-        print("Still Trying")
         actor.insert()
-        print("Tried")
 
         return actor.name + " added"
     
@@ -93,7 +89,6 @@ def actors_update(payload,actor_id):
         if actor is None:
             abort(400)
 
-        print(actor.id)
         actor.name = new_name
         actor.age = new_age
         actor.gender = new_gender
@@ -188,7 +183,6 @@ def movies_update(payload,movie_id):
         if movie is None:
             abort(400)
 
-        print(movie.id)
         movie.title = new_title
         movie.release_date = new_release_date
         movie.update()
