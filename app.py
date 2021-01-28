@@ -18,13 +18,6 @@ Uncomment the following line to initialize the datbase
 db_drop_and_create_all()
 
 ## ROUTES
-@app.route('/headers')
-def headers():
-    # @TODO unpack the request header
-    auth_header = request.headers.get('Authorization')
-    print(auth_header.split(' ')[1])
-    return 'not implemented'
-
 '''
 Implement the public get actors endpoint
 '''
@@ -95,7 +88,7 @@ def actors_update(payload,actor_id):
         actor.update()
 
         #return actor.name + " updated"
-        return retrieve_actors(payload) 
+        return retrieve_actors() 
 
     except Exception as e:
         print(e)
@@ -115,7 +108,7 @@ def delete_actor(payload,actor_id):
 
         actor.delete()
 
-        return retrieve_actors(payload)
+        return retrieve_actors()
 
     except Exception as e:
         print(e)
@@ -188,7 +181,7 @@ def movies_update(payload,movie_id):
         movie.release_date = new_release_date
         movie.update()
 
-        return retrieve_movies(payload) 
+        return retrieve_movies() 
 
     except Exception as e:
         print(e)
@@ -208,7 +201,7 @@ def delete_movie(payload,movie_id):
 
         movie.delete()
 
-        return retrieve_movies(payload)
+        return retrieve_movies()
 
     except Exception as e:
         print(e)

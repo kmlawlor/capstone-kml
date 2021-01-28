@@ -23,7 +23,7 @@ def setup_db(app):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    #migrate = Migrate(app, db)
+    migrate = Migrate(app, db)
 
 '''
 db_drop_and_create_all()
