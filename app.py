@@ -22,12 +22,12 @@ db_drop_and_create_all()
 Implement the public get actors endpoint
 '''
 @app.route('/actors')
-@requires_auth('get:actors')
-def retrieve_actors(payload):
+#@requires_auth('get:actors')
+def retrieve_actors():
     current_actors = Actor.query.order_by(Actor.id).all()
 
     if len(current_actors) == 0:
-        print("No actorse")
+        print("No actors")
         abort(404)
 
     print('Actors Retrieved:' + str(len(Actor.query.all()))) 
@@ -119,11 +119,12 @@ def delete_actor(payload,actor_id):
 Implement the public get movies endpoint
 '''
 @app.route('/movies')
-@requires_auth('get:movies')
-def retrieve_movies(payload):
+#@requires_auth('get:movies')
+def retrieve_movies():
     current_movies = Movie.query.order_by(Movie.title).all()
 
     if len(current_movies) == 0:
+        print("No movies")
         abort(414)     
 
     print('Movies Retrieved:' + str(len(Movie.query.all()))) 
