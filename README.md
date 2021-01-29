@@ -2,9 +2,9 @@
 
 ## Description
 
-This project demonstrates the backend of a simple job portal, enabling users to create company and candidate profiles, post job vacancies and apply for jobs. The backend is designed to work for two types of users: companies and candidates. Also, some general informaiton about posted vacancies and candidate profiles can be viewed by public users. 
+This project demonstrates what we have learned in the Udacity Full Stack Web Developer nano degree course.  It enables users to create, view, update and delete actors and movies.  The backend is designed to work for three types of users: Casting Assistant, Casting Director, and Executive Producers. 
 
-Companies can post, update, and delete their job vacancies, view applications submitted for the vacancies, whereas candidates can post, update and delete their profiles, post applications to open job vacancies and delete their applications. Users must be authorized to be able to perform role-based requests to the backend via API described below. 
+Executive Producers are super users, and can create, view, update and delete actors and movies.  A Casting Assistant can only view actors and mocies.  Casting Director can create, view, update and delete actors, but can only view or update movies. Users must be authorized to be able to perform role-based requests to the backend via API described below. 
 
 Authorization of users is enabled via Auth0 in which two seperate roles (companies and candidates) have been created and assigned seperate permissions. 
 
