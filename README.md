@@ -2,19 +2,26 @@
 
 ## Description
 
-This project demonstrates what we have learned in the Udacity Full Stack Web Developer nano degree course.  It enables users to create, view, update and delete actors and movies.  The backend is designed to work for three types of users: Casting Assistant, Casting Director, and Executive Producers. 
+This project demonstrates what we have learned in the Udacity Full Stack Web Developer nano degree course.  
+It enables users to create, view, update and delete actors and movies.  
+The backend is designed to work for three types of users: Casting Assistant, Casting Director, and Executive Producers. 
 
-Executive Producers are super users, and can create, view, update and delete actors and movies.  A Casting Assistant can only view actors and mocies.  Casting Director can create, view, update and delete actors, but can only view or update movies. Users must be authorized to be able to perform role-based requests to the backend via API described below. 
+Executive Producers are super users, and can create, view, update and delete actors and movies.  
+A Casting Assistant can only view actors and mocies.  Casting Director can create, view, update and delete actors, 
+but can only view or update movies. Users must be authorized to be able to perform role-based requests to the backend via API described below. 
 
-Authorization of users is enabled via Auth0 in which two seperate roles (companies and candidates) have been created and assigned seperate permissions. 
+Authorization of users is enabled via Auth0 in which two seperate roles (companies and candidates) have been created 
+and assigned seperate permissions. 
 
 ## Project dependencies
 
-The project depends on the latest version of Python 3.x which we recommend to download and install from their official website and use a virtual environment to install all dependencies.
+The project depends on the latest version of Python 3.x which we recommend to download 
+and install from their official website and use a virtual environment to install all dependencies.
 
 ## PIP dependencies
 
-After having successfully installed Python, navigate to the root folder of the project (the project must be forked to your local machine) and run the following in a command line:
+After having successfully installed Python, navigate to the root folder of the project 
+(the project must be forked to your local machine) and run the following in a command line:
 
 ```
 pip3 install -r requirements.txt
@@ -25,12 +32,14 @@ This will install all the required packages to your virtual environment to work 
 ## Database setup
 
 The first time you execute capstone, uncomment line 18 in app.py 
-to create the database with a name of `capstone`, and all the necessary tables and relationships to work with the project. Be sure to comment again after the first run, or the database will be initialized.
+to create the database with a name of `capstone`, and all the necessary tables and relationships to work with the project. 
+Be sure to comment again after the first run, or the database will be initialized.
 
 
 ## Data Modelling
 
-The data model of the project is provided in `models.py` file in the root folder. The following schema for the database and helper methods are used for API behaviour:
+The data model of the project is provided in `models.py` file in the root folder. 
+The following schema for the database and helper methods are used for API behaviour:
 
 - There are two tables created: Actors and Movies.
 - The Actors table contains the name, age, and sex of the actors
@@ -62,7 +71,9 @@ flask run
 
 ## RBAC credentials and roles
 
-Auth0 was set up to manage role-based access control for three users. The API documentation below describes, among others, by which user the endpoints can be accessed. Access credentials and permissions are handled with JWT tockens which must be included in the request header. 
+Auth0 was set up to manage role-based access control for three users. The API documentation below describes, among others, 
+by which user the endpoints can be accessed. Access credentials and permissions are handled with JWT tockens which must be 
+included in the request header. 
 
 ### Permissions
 
@@ -96,43 +107,47 @@ Casting Assistent can access API endpoints that have the following permission re
 ### Public endpoints
 ```
 #### Post actors
-- Adds an actor with the following forn fields
+- Adds an actor with the following form fields
 - Form fields
 	- name
 	- age
 	- sex
-- Returns:  a text field withe the added name
-
+- Returns:  The actor added in json format, with a success flag and status_code
 Sample response:
 ```
-Kevin Costner added.
-```
+{
+    "actors": {
+        "age": "62",
+        "gender": "Male",
+        "id": 2,
+        "name": "Sean Connery"
+    },
+    "status_code": 200,
+    "success": true
+}```
 #### GET '/actors'
-- Returns: A html table with actors
+- Returns: The actors in json format
 
 Sample response:
 ```
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Age</th>
-		<th>Gender</th>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Persaon1</td>
-		<td>36</td>
-		<td>Female</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Persaon2</td>
-		<td>24</td>
-		<td>Female</td>
-	</tr>
-</table>
-
+{
+    "actors": [
+        {
+            "age": "68",
+            "gender": "Male",
+            "id": 1,
+            "name": "Kevin Costner"
+        },
+        {
+            "age": "62",
+            "gender": "Male",
+            "id": 2,
+            "name": "Sean Connery"
+        }
+    ],
+    "status_code": 200,
+    "success": true
+}
 ```
 #### Patch '/actors/<int:actor_id>'
 - Updates an actor by actor_id
@@ -140,172 +155,112 @@ Sample response:
 	- name
 	- age
 	- sex
-- Returns: A html table with all actors including the updated actor
-
+- Returns: The updated actor in json format, with a success flag and status_code
 Sample response:
 ```
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Age</th>
-		<th>Gender</th>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Persaon1</td>
-		<td>36</td>
-		<td>Female</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Persaon2</td>
-		<td>24</td>
-		<td>Female</td>
-	</tr>
-</table>
-```
+{
+    "actors": {
+        "age": "68",
+        "gender": "Male",
+        "id": 2,
+        "name": "Sean Connery"
+    },
+    "status_code": 200,
+    "success": true
+}
 
 ```
 #### Delete '/actors/<int:actor_id>'
 - Deletes an actor by actor_id
-- Returns: A html table with all actors remaining
-
+- Returns: The success message in json format, with a status_code and actor_id deleted
 Sample response:
 ```
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Age</th>
-		<th>Gender</th>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Persaon1</td>
-		<td>36</td>
-		<td>Female</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Persaon2</td>
-		<td>24</td>
-		<td>Female</td>
-	</tr>
-</table>
+{
+    "actor_id": 1,
+    "status_code": 200,
+    "success": true
+}
 ```
 #### Post movies
 - Adds an actor with the following forn fields
 - Form fields
 	- title
 	- release_date
-- Returns:  a text field withe the added title
-
+- Returns: The added movie in json format, with a success flag and status_code.
 Sample response:
 ```
-Braveheart added
+{
+    "movies": {
+        "release_date": "01/01/1990",
+        "title": "Mad Movie 2"
+    },
+    "status_code": 200,
+    "success": true
+}
 ```
 #### GET '/movies'
-- Returns: A html table with movies
-
+- Returns: The movies in json format, with a success flag and status_code.
 Sample response:
 ```
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Title</th>
-		<th>Date</th>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Tremors</td>
-		<td>01/01/1980</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Tremors 2</td>
-		<td>01/01/1982</td>
-	</tr>
-	<tr>
-		<td>3</td>
-		<td>Tremors 3</td>
-		<td>01/01/1988</td>
-	</tr>
-</table>
-S
+{
+    "movies": [
+        {
+            "id": 3,
+            "release_date": "01/01/1990",
+            "title": "Mad Movie 2"
+        },
+        {
+            "id": 2,
+            "release_date": "01/01/1986",
+            "title": "Temple of Doom"
+        }
+    ],
+    "status_code": 200,
+    "success": true
+}
+```
 #### Patch '/movies/<int:movie_id>'
 - Updates an movie by movie_id
 - Form fields
 	- title
 	- release_
-- Returns: A html table with all movies including the updated movie
-
+- Returns: The movie updated in json format, with a success flag and status_code.
 Sample response:
 ```
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Title</th>
-		<th>Date</th>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Tremors</td>
-		<td>01/01/1980</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Tremors 2</td>
-		<td>01/01/1984</td>
-	</tr>
-	<tr>
-		<td>3</td>
-		<td>Tremors 3</td>
-		<td>01/01/1988</td>
-	</tr>
-</table>```
-
+{
+    "movies": {
+        "id": 3,
+        "release_date": "01/01/1990",
+        "title": "Mad Movie 3"
+    },
+    "status_code": 200,
+    "success": true
+}
 ```
 #### Delete '/movies/<int:movie_id>'
 - Deletes an movie by movie_id
-- Returns: A html table with all movies remaining
-
+- Returns: A suuccess message in json format, along with a status_code and movie_id deleted.
 Sample response:
 ```
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Title</th>
-		<th>Date</th>
-	</tr>
-	<tr>
-		<td>1</td>
-		<td>Tremors</td>
-		<td>01/01/1980</td>
-	</tr>
-	<tr>
-		<td>2</td>
-		<td>Tremors 2</td>
-		<td>01/01/1982</td>
-	</tr>
-</table>>
-
+{
+    "movie_id": 3,
+    "status_code": 200,
+    "success": true
+}
+```
 ## Testing
 
-The testing of all endpoints was implemented with unittest. Each endpoint can be tested with one success test case and one error test case. RBAC feature can also be tested for each type of user.
+The testing of all endpoints was implemented with unittest. Each endpoint can be tested with one success test case and one error test case. 
+RBAC feature can also be tested for each type of user.
 
-All test cases are soted in `test_app.py` file in the project rool folder.
+All test cases are stored in `first_test_app.py` and `second_test_app.py` files in the project rool folder.
 
-Before running the test application, uncomment line 18 in app.py.  Then recomment the line and run the test cases.
+Before running the test application, uncomment line 18 in testapp.py, and execute `python first_test_app.py`.  This job will intialize the database, 
+and insert the necessary input records.  Next recomment the line 18 in testapp.py, and execute `python second_test_app.py` to run the test cases.
 
-#db_drop_and_create_all()
+line 18  #db_drop_and_create_all()
 
 ```
-
-Then in the command line interface run the test file:
-
-`python3 test_app.py`
-
 ## Heroku Deployment and Base URL
 
 The backend application has been deployed on Heroku and can be accessed live at

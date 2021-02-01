@@ -4,12 +4,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import json
 
-database_filename = "capstone"  
+database_filename = "capstone"
 project_dir = os.path.dirname(os.path.abspath(__file__))
-database_path = "sqlite:///{}".format(os.path.join(project_dir, database_filename))
-
-#database_name = "capstone"
-#database_path = "postgresql://{}/{}".format('postgres:admin@localhost:5432', database_name)
+database_path = "sqlite:///{}".format(os.path.join(project_dir,
+                                                   database_filename))
 
 db = SQLAlchemy()
 
@@ -17,6 +15,8 @@ db = SQLAlchemy()
 setup_db(app)
     binds a flask application and a SQLAlchemy service
 '''
+
+
 def setup_db(app):
     #app.config.from_object('config')
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
@@ -25,20 +25,27 @@ def setup_db(app):
     db.init_app(app)
     migrate = Migrate(app, db)
 
+
 '''
 db_drop_and_create_all()
     drops the database tables and starts fresh
     can be used to initialize a clean database
-    !!NOTE you can change the database_filename variable to have multiple verisons of a database
+    !!NOTE you can change the database_filename variable
+    to have multiple verisons of a database
 '''
+
+
 def db_drop_and_create_all():
     db.drop_all()
     db.create_all()
+
 
 '''
 Actor
 a persistent actor entity, extends the base SQLAlchemy Model
 '''
+
+
 class Actor(db.Model):
     __tablename__ = 'actors'
     # Autoincrementing, unique primary key
@@ -46,7 +53,7 @@ class Actor(db.Model):
     # String Title
     name = Column(String(80), unique=False)
     age = Column(String(2), unique=False)
-    gender =  Column(String(6), nullable=False)
+    gender = Column(String(6), nullable=False)
 
     '''
     insert()
@@ -84,19 +91,21 @@ class Actor(db.Model):
     '''
     def update(self):
         db.session.commit()
+
+
 '''
 Movie
 a persistent actor entity, extends the base SQLAlchemy Model
 '''
+
+
 class Movie(db.Model):
     __tablename__ = 'movies'
     # Autoincrementing, unique primary key
     id = Column(Integer().with_variant(Integer, "sqlite"), primary_key=True)
     # String Title
-    title = Column(String(80), unique=True)
-    release_date =  Column(String(20), nullable=False)
-
-
+    title = Column(String(80), unique=False)
+    release_date = Column(String(20), nullable=False)
     '''
     insert()
         inserts a new model into a database
@@ -115,7 +124,8 @@ class Movie(db.Model):
         deletes a new model into a database
         the model must exist in the database
         EXAMPLE
-            movie = actor = Movie.query.filter(Movie.id == movie_id).one_or_none()
+            movie = actor = Movie.query.
+                filter(Movie.id == movie_id).one_or_none()
             movie.delete()
     '''
     def delete(self):

@@ -15,7 +15,6 @@ CORS(app)
 Uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
 '''
-# Init
 #db_drop_and_create_all()
 
 # ROUTES
@@ -25,8 +24,7 @@ Implement the public get actors endpoint
 
 
 @app.route('/actors')
-@requires_auth('get:actors')
-def retrieve_actors(payload):
+def retrieve_actors():
     current_actors = Actor.query.order_by(Actor.id).all()
 
     if len(current_actors) == 0:
@@ -52,8 +50,7 @@ Implement create actor endpoint
 
 
 @app.route('/actors', methods=['POST'])
-@requires_auth('post:actors')
-def create_actor(payload):
+def create_actor():
     new_name = request.form.get('name')
     new_age = request.form.get('age')
     new_gender = request.form.get('gender')
@@ -81,8 +78,7 @@ Implement update actors endpoint
 
 
 @app.route('/actors/<int:actor_id>', methods=['PATCH'])
-@requires_auth('patch:actors')
-def actors_update(payload, actor_id):
+def actors_update(actor_id):
     try:
         new_name = request.form.get('name')
         new_age = request.form.get('age')
@@ -108,7 +104,7 @@ def actors_update(payload, actor_id):
 
     except Exception as e:
         print(e)
-        abort(422)
+        abort(408)
 
 
 '''
@@ -117,8 +113,7 @@ Delete endpoint
 
 
 @app.route('/actors/<int:actor_id>', methods=['DELETE'])
-@requires_auth('delete:actors')
-def delete_actor(payload, actor_id):
+def delete_actor(actor_id):
     try:
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
 
@@ -131,7 +126,7 @@ def delete_actor(payload, actor_id):
 
     except Exception as e:
         print(e)
-        abort(422)
+        abort(408)
 
 
 '''
@@ -140,8 +135,7 @@ Implement the public get movies endpoint
 
 
 @app.route('/movies')
-@requires_auth('get:movies')
-def retrieve_movies(payload):
+def retrieve_movies():
     current_movies = Movie.query.order_by(Movie.title).all()
 
     if len(current_movies) == 0:
@@ -166,7 +160,6 @@ Implement create movie endpoint
 
 
 @app.route('/movies', methods=['POST'])
-#@requires_auth('post:movies')
 def create_movie():
     new_title = request.form.get('title')
     new_release_date = request.form.get('release_date')
@@ -192,8 +185,7 @@ Implement update movies endpoint
 
 
 @app.route('/movies/<int:movie_id>', methods=['PATCH'])
-@requires_auth('patch:movies')
-def movies_update(payload, movie_id):
+def movies_update(movie_id):
     try:
         new_title = request.form.get('title')
         new_release_date = request.form.get('release_date')
@@ -217,7 +209,7 @@ def movies_update(payload, movie_id):
 
     except Exception as e:
         print(e)
-        abort(422)
+        abort(418)
 
 
 '''
@@ -226,8 +218,7 @@ Delete endpoint
 
 
 @app.route('/movies/<int:movie_id>', methods=['DELETE'])
-@requires_auth('delete:movies')
-def delete_movie(payload, movie_id):
+def delete_movie(movie_id):
     try:
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
 
@@ -240,7 +231,7 @@ def delete_movie(payload, movie_id):
 
     except Exception as e:
         print(e)
-        abort(422)
+        abort(418)
 
 
 # ERRORS

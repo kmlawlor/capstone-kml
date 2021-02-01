@@ -8,27 +8,33 @@ AUTH0_DOMAIN = 'kml.us.auth0.com'
 ALGORITHMS = ['RS256']
 API_AUDIENCE = 'capstone'
 
-## AuthError Exception
+# AuthError Exception
+
+
 '''
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
+
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
         self.status_code = status_code
 
 
-## Auth Header
+# Auth Header
 
 '''
 Implement get_token_auth_header() method
 '''
+
+
 def get_token_auth_header():
     """Obtains the Access Token from the Authorization Header
     """
-    auth = request.headers.get('Authorization', None)
-    #auth = request.headers['Authorization']
+    #auth = request.headers.get('Authorization', None)
+    auth = request.headers['Authorization']
     print(auth.split(' ')[1])
     if not auth:
         raise AuthError({
@@ -58,9 +64,12 @@ def get_token_auth_header():
     token = parts[1]
     return token
 
+
 '''
 Implement check_permissions(permission, payload) method
 '''
+
+
 def check_permissions(permission, payload):
     if 'permissions' not in payload:
         raise AuthError({
@@ -73,12 +82,17 @@ def check_permissions(permission, payload):
             'code': 'unauthorized',
             'description': 'Permission not found.'
         }, 403)
-    
+
     return True
+
+
 '''
 Implement verify_decode_jwt(token) method
-    !!NOTE urlopen has a common certificate error described here: https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
+    !!NOTE urlopen has a common certificate error described here:
+    https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
 '''
+
+
 def verify_decode_jwt(token):
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
@@ -120,16 +134,20 @@ def verify_decode_jwt(token):
         except jwt.JWTClaimsError:
             raise AuthError({
                 'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
+                'description': 'Incorrect claims. ' +
+                'Please, check the audience and issuer.'
             }, 401)
     raise AuthError({
                 'code': 'invalid_header',
                 'description': 'Unable to find the appropriate key.'
             }, 400)
 
+
 '''
 Implement @requires_auth(permission) decorator method
 '''
+
+
 def requires_auth(permission):
     def requires_auth_decorator(f):
         @wraps(f)
@@ -137,6 +155,7 @@ def requires_auth(permission):
             token = get_token_auth_header()
             try:
                 payload = verify_decode_jwt(token)
+
             except:
                 raise AuthError({
                     'code': 'invalid_header',
