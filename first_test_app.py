@@ -22,7 +22,6 @@ class CapstoneKMLTestCase(unittest.TestCase):
     def tearDown(self):
         pass
 
-    
     def test_get_actors(self):
         """Test getting the actors """
         response = self.client().get('/actors')
@@ -39,30 +38,28 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test adding an actor """
         fdata = {"name": "Kevin Costner", "age": "58", "gender": "Male"}
         res = self.client().post('/actors',
-                                content_type='multipart/form-data',
-                                data=fdata)
+                                 content_type='multipart/form-data',
+                                 data=fdata)
         data = json.loads(res.data)
 
         self.assertEqual(data['success'], True)
-
 
     def test_post_actors_2(self):
         """Test adding an actor """
         fdata = {"name": "Sean Connery", "age": "64", "gender": "Male"}
         res = self.client().post('/actors',
-                                content_type='multipart/form-data',
-                                data=fdata)
+                                 content_type='multipart/form-data',
+                                 data=fdata)
         data = json.loads(res.data)
 
         self.assertEqual(data['success'], True)
-
 
     def test_post_movies(self):
         """Test adding a movies """
         fdata = {"title": "Braveheart", "release_date": "01/01/1980"}
         res = self.client().post('/movies',
-                                content_type='multipart/form-data',
-                                data=fdata)
+                                 content_type='multipart/form-data',
+                                 data=fdata)
         data = json.loads(res.data)
 
         self.assertEqual(data['success'], True)
@@ -71,11 +68,12 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test adding a movies """
         fdata = {"title": "Trmple of Doom", "release_date": "01/01/1982"}
         res = self.client().post('/movies',
-                                content_type='multipart/form-data',
-                                data=fdata)
+                                 content_type='multipart/form-data',
+                                 data=fdata)
         data = json.loads(res.data)
 
         self.assertEqual(data['success'], True)
+
 
 if __name__ == "__main__":
     unittest.main()

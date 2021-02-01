@@ -15,7 +15,7 @@ CORS(app)
 Uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
 '''
-#db_drop_and_create_all()
+# db_drop_and_create_all()
 
 # ROUTES
 '''
@@ -35,10 +35,10 @@ def retrieve_actors():
     actors = []
     for actor in current_actors:
         actors.append({
-        "id": actor.id,
-        "name": actor.name,
-        "age": actor.age,
-        "gender": actor.gender,
+                        "id": actor.id,
+                        "name": actor.name,
+                        "age": actor.age,
+                        "gender": actor.gender,
         })
 
     return jsonify({"success": True, "status_code": 200, "actors": actors})
@@ -59,10 +59,10 @@ def create_actor():
         actor = Actor(name=new_name, age=new_age, gender=new_gender)
         actor.insert()
         actors = {
-        "id": actor.id,
-        "name": actor.name,
-        "age": actor.age,
-        "gender": actor.gender,
+                    "id": actor.id,
+                    "name": actor.name,
+                    "age": actor.age,
+                    "gender": actor.gender,
         }
 
         return jsonify({"success": True, "status_code": 200, "actors": actors})
@@ -94,10 +94,10 @@ def actors_update(actor_id):
         actor.gender = new_gender
         actor.update()
         actors = {
-        "id": actor_id,
-        "name": new_name,
-        "age": new_age,
-        "gender": new_gender,
+                    "id": actor_id,
+                    "name": new_name,
+                    "age": new_age,
+                    "gender": new_gender,
         }
 
         return jsonify({"success": True, "status_code": 200, "actors": actors})
@@ -122,7 +122,8 @@ def delete_actor(actor_id):
 
         actor.delete()
 
-        return jsonify({"success": True, "status_code": 200, "actor_id": actor_id})
+        return jsonify({"success": True, "status_code": 200,
+                        "actor_id": actor_id})
 
     except Exception as e:
         print(e)
@@ -146,9 +147,9 @@ def retrieve_movies():
     movies = []
     for movie in current_movies:
         movies.append({
-        "id": movie.id,
-        "title": movie.title,
-        "release_date": movie.release_date,
+                        "id": movie.id,
+                        "title": movie.title,
+                        "release_date": movie.release_date,
         })
 
     return jsonify({"success": True, "status_code": 200, "movies": movies})
@@ -168,8 +169,8 @@ def create_movie():
         movie = Movie(title=new_title, release_date=new_release_date)
         movie.insert()
         movies = {
-        "title": new_title,
-        "release_date": new_release_date,
+                    "title": new_title,
+                    "release_date": new_release_date,
         }
 
         return jsonify({"success": True, "status_code": 200, "movies": movies})
@@ -200,9 +201,9 @@ def movies_update(movie_id):
         movie.release_date = new_release_date
         movie.update()
         movies = {
-        "id": movie_id,
-        "title": new_title,
-        "release_date": new_release_date,
+                    "id": movie_id,
+                    "title": new_title,
+                    "release_date": new_release_date,
         }
 
         return jsonify({"success": True, "status_code": 200, "movies": movies})
@@ -227,7 +228,8 @@ def delete_movie(movie_id):
 
         movie.delete()
 
-        return jsonify({"success": True, "status_code": 200, "movie_id": movie_id})
+        return jsonify({"success": True, "status_code": 200,
+                        "movie_id": movie_id})
 
     except Exception as e:
         print(e)

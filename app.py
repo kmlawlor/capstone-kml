@@ -16,7 +16,8 @@ Uncomment the following line to initialize the datbase
 !! NOTE THIS WILL DROP ALL RECORDS AND START YOUR DB FROM SCRATCH
 '''
 # Init
-#db_drop_and_create_all()
+
+# db_drop_and_create_all()
 
 # ROUTES
 '''
@@ -37,10 +38,10 @@ def retrieve_actors(payload):
     actors = []
     for actor in current_actors:
         actors.append({
-        "id": actor.id,
-        "name": actor.name,
-        "age": actor.age,
-        "gender": actor.gender,
+                       "id": actor.id,
+                       "name": actor.name,
+                       "age": actor.age,
+                       "gender": actor.gender,
         })
 
     return jsonify({"success": True, "status_code": 200, "actors": actors})
@@ -62,10 +63,10 @@ def create_actor(payload):
         actor = Actor(name=new_name, age=new_age, gender=new_gender)
         actor.insert()
         actors = {
-        "id": actor.id,
-        "name": actor.name,
-        "age": actor.age,
-        "gender": actor.gender,
+                    "id": actor.id,
+                    "name": actor.name,
+                    "age": actor.age,
+                    "gender": actor.gender,
         }
 
         return jsonify({"success": True, "status_code": 200, "actors": actors})
@@ -98,10 +99,10 @@ def actors_update(payload, actor_id):
         actor.gender = new_gender
         actor.update()
         actors = {
-        "id": actor_id,
-        "name": new_name,
-        "age": new_age,
-        "gender": new_gender,
+                    "id": actor_id,
+                    "name": new_name,
+                    "age": new_age,
+                    "gender": new_gender,
         }
 
         return jsonify({"success": True, "status_code": 200, "actors": actors})
@@ -127,7 +128,8 @@ def delete_actor(payload, actor_id):
 
         actor.delete()
 
-        return jsonify({"success": True, "status_code": 200, "actor_id": actor_id})
+        return jsonify({"success": True, "status_code": 200,
+                        "actor_id": actor_id})
 
     except Exception as e:
         print(e)
@@ -152,9 +154,9 @@ def retrieve_movies(payload):
     movies = []
     for movie in current_movies:
         movies.append({
-        "id": movie.id,
-        "title": movie.title,
-        "release_date": movie.release_date,
+                        "id": movie.id,
+                        "title": movie.title,
+                        "release_date": movie.release_date,
         })
 
     return jsonify({"success": True, "status_code": 200, "movies": movies})
@@ -166,8 +168,8 @@ Implement create movie endpoint
 
 
 @app.route('/movies', methods=['POST'])
-#@requires_auth('post:movies')
-def create_movie():
+@requires_auth('post:movies')
+def create_movie(payload):
     new_title = request.form.get('title')
     new_release_date = request.form.get('release_date')
 
@@ -175,8 +177,8 @@ def create_movie():
         movie = Movie(title=new_title, release_date=new_release_date)
         movie.insert()
         movies = {
-        "title": new_title,
-        "release_date": new_release_date,
+                    "title": new_title,
+                    "release_date": new_release_date,
         }
 
         return jsonify({"success": True, "status_code": 200, "movies": movies})
@@ -208,9 +210,9 @@ def movies_update(payload, movie_id):
         movie.release_date = new_release_date
         movie.update()
         movies = {
-        "id": movie_id,
-        "title": new_title,
-        "release_date": new_release_date,
+                    "id": movie_id,
+                    "title": new_title,
+                    "release_date": new_release_date,
         }
 
         return jsonify({"success": True, "status_code": 200, "movies": movies})
@@ -236,7 +238,8 @@ def delete_movie(payload, movie_id):
 
         movie.delete()
 
-        return jsonify({"success": True, "status_code": 200, "movie_id": movie_id})
+        return jsonify({"success": True, "status_code": 200,
+                        "movie_id": movie_id})
 
     except Exception as e:
         print(e)

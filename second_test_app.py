@@ -15,22 +15,24 @@ class CapstoneKMLTestCase(unittest.TestCase):
     '''This class represents the capstone-kml test case'''
 
     def setUp(self):
-        '''Define test variables and initialize app.'''
+        """Define test variables and initialize app."""
         self.client = app.test_client
         pass
 
     def tearDown(self):
+        """Define tear down."""
         pass
 
     def test_get_actors(self):
         """Test getting the actors """
         response = self.client().get('/actors')
         if (response.status_code != 200):
-            print("API is not working. status code :" + str(response.status_code))
+            print("API is not working. status code :" +
+                  str(response.status_code))
         else:
             print("API is working. status code :" + str(response.status_code))
             data = json.loads(response.data)
-            print(json.dumps(data, indent = 4, sort_keys=True))
+            print(json.dumps(data, indent=4, sort_keys=True))
 
         self.assertEqual(response.status_code, 200)
 
@@ -38,16 +40,17 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test updating the actors """
         fdata = {"name": "Kevin Costner", "age": "68", "gender": "Male"}
         response = self.client().patch('/actors/1',
-                                content_type='multipart/form-data',
-                                data=fdata)
+                                       content_type='multipart/form-data',
+                                       data=fdata)
         data = json.loads(response.data)
 
         if (response.status_code != 200):
-            print("API is not working. status code :" + str(response.status_code))
+            print("API is not working. status code :" +
+                  str(response.status_code))
         else:
             print("API is working. status code :" + str(response.status_code))
             data = json.loads(response.data)
-            print(json.dumps(data, indent = 4, sort_keys=True))
+            print(json.dumps(data, indent=4, sort_keys=True))
 
         self.assertEqual(response.status_code, 200)
 
@@ -55,11 +58,12 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test getting the actors """
         response = self.client().get('/actors')
         if (response.status_code != 200):
-            print("API is not working. status code :" + str(response.status_code))
+            print("API is not working. status code :" +
+                  str(response.status_code))
         else:
             print("API is working. status code :" + str(response.status_code))
             data = json.loads(response.data)
-            print(json.dumps(data, indent = 4, sort_keys=True))
+            print(json.dumps(data, indent=4, sort_keys=True))
 
         self.assertEqual(response.status_code, 200)
 
@@ -79,11 +83,12 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test getting the actors """
         response = self.client().get('/actors')
         if (response.status_code != 200):
-            print("API is not working. status code :" + str(response.status_code))
+            print("API is not working. status code :" +
+                  str(response.status_code))
         else:
             print("API is working. status code :" + str(response.status_code))
             data = json.loads(response.data)
-            print(json.dumps(data, indent = 4, sort_keys=True))
+            print(json.dumps(data, indent=4, sort_keys=True))
 
         self.assertEqual(response.status_code, 200)
 
@@ -91,11 +96,12 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test getting the movies """
         response = self.client().get('/movies')
         if (response.status_code != 200):
-            print("API is not working. status code :" + str(response.status_code))
+            print("API is not working. status code :" +
+                  str(response.status_code))
         else:
             print("API is working. status code :" + str(response.status_code))
             data = json.loads(response.data)
-            print(json.dumps(data, indent = 4, sort_keys=True))
+            print(json.dumps(data, indent=4, sort_keys=True))
 
         self.assertEqual(response.status_code, 200)
 
@@ -103,28 +109,30 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test updating the movies """
         fdata = {"title": "Temple of Doom", "release_date": "01/01/1986"}
         response = self.client().patch('/movies/2',
-                                content_type='multipart/form-data',
-                                data=fdata)
+                                       content_type='multipart/form-data',
+                                       data=fdata)
         data = json.loads(response.data)
 
         if (response.status_code != 200):
-            print("API is not working. status code :" + str(response.status_code))
+            print("API is not working. status code :" +
+                  str(response.status_code))
         else:
             print("API is working. status code :" + str(response.status_code))
             data = json.loads(response.data)
-            print(json.dumps(data, indent = 4, sort_keys=True))
+            print(json.dumps(data, indent=4, sort_keys=True))
 
         self.assertEqual(response.status_code, 200)
-    
+
     def test_get_movies_2(self):
         """Test getting the movies """
         response = self.client().get('/movies')
         if (response.status_code != 200):
-            print("API is not working. status code :" + str(response.status_code))
+            print("API is not working. status code :" +
+                  str(response.status_code))
         else:
             print("API is working. status code :" + str(response.status_code))
             data = json.loads(response.data)
-            print(json.dumps(data, indent = 4, sort_keys=True))
+            print(json.dumps(data, indent=4, sort_keys=True))
 
         self.assertEqual(response.status_code, 200)
 
@@ -144,13 +152,15 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test getting the movies """
         response = self.client().get('/movies')
         if (response.status_code != 200):
-            print("API is not working. status code :" + str(response.status_code))
+            print("API is not working. status code :" +
+                  str(response.status_code))
         else:
             print("API is working. status code :" + str(response.status_code))
             data = json.loads(response.data)
-            print(json.dumps(data, indent = 4, sort_keys=True))
+            print(json.dumps(data, indent=4, sort_keys=True))
 
         self.assertEqual(response.status_code, 200)
+
 
 if __name__ == "__main__":
     unittest.main()

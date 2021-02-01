@@ -33,7 +33,6 @@ Implement get_token_auth_header() method
 def get_token_auth_header():
     """Obtains the Access Token from the Authorization Header
     """
-    #auth = request.headers.get('Authorization', None)
     auth = request.headers['Authorization']
     print(auth.split(' ')[1])
     if not auth:
@@ -156,11 +155,11 @@ def requires_auth(permission):
             try:
                 payload = verify_decode_jwt(token)
 
-            except:
+            except JWT.InvalidHeadr:
                 raise AuthError({
-                    'code': 'invalid_header',
-                    'description': 'Verify Decode JWT Exception.'
-                }, 401)
+                                 'code': 'invalid_header',
+                                 'description': 'Verify Decode JWT Exception.'
+                                }, 401)
 
             check_permissions(permission, payload)
 
