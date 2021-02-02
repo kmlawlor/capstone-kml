@@ -255,8 +255,8 @@ RBAC feature can also be tested for each type of user.
 
 All test cases are stored in `first_test_app.py` and `second_test_app.py` files in the project rool folder.
 
-Before running the test application, uncomment line 18 in testapp.py, and execute `python first_test_app.py`.  This job will intialize the database, 
-and insert the necessary input records.  Next recomment the line 18 in testapp.py, and execute `python second_test_app.py` to run the test cases.
+Before running the test application, uncomment line 18 in app.py, and execute `python first_test_app.py`.  This job will intialize the database, 
+and insert the necessary input records.  Next recomment the line 18 in app.py, and execute `python second_test_app.py` to run the test cases.
 
 line 18  #db_drop_and_create_all()
 
