@@ -133,7 +133,7 @@ def delete_actor(payload, actor_id):
 
     except Exception as e:
         print(e)
-        abort(422)
+        abort(408)
 
 
 '''
@@ -219,7 +219,7 @@ def movies_update(payload, movie_id):
 
     except Exception as e:
         print(e)
-        abort(422)
+        abort(418)
 
 
 '''
@@ -243,7 +243,7 @@ def delete_movie(payload, movie_id):
 
     except Exception as e:
         print(e)
-        abort(422)
+        abort(418)
 
 
 # ERRORS
@@ -306,10 +306,8 @@ Error handler for AuthError
 '''
 
 
-@app.errorhandler(401)
+@app.errorhandler(AuthError)
 def handle_auth_error(ex):
-    return jsonify({
-        "success": False,
-        "error": ex.code,
-        "message": ex.description
-    })
+    response = jsonify(ex.error)
+    response.status_code = ex.status_code
+    return response

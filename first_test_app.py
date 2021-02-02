@@ -3,12 +3,15 @@ import time
 import unittest
 import json
 from flask_sqlalchemy import SQLAlchemy
-from testapp import app
+from app import app
 from models import (
     setup_db,
     Actor,
     Movie
 )
+from dotenv import load_dotenv
+load_dotenv()
+ep_token = os.getenv('EP_TOKEN')
 
 
 class CapstoneKMLTestCase(unittest.TestCase):
@@ -24,13 +27,21 @@ class CapstoneKMLTestCase(unittest.TestCase):
 
     def test_get_actors(self):
         """Test getting the actors """
-        response = self.client().get('/actors')
+        response = self.client().get('/actors',
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer {}'
+                                              .format(ep_token)})
 
         self.assertEqual(response.status_code, 404)
 
     def test_get_movies(self):
         """Test getting the movies """
-        response = self.client().get('/movies')
+        response = self.client().get('/movies',
+                                     headers={'Content-Type':
+                                              'application/json',
+                                              'Authorization': 'Bearer {}'
+                                              .format(ep_token)})
 
         self.assertEqual(response.status_code, 414)
 
@@ -38,6 +49,10 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test adding an actor """
         fdata = {"name": "Kevin Costner", "age": "58", "gender": "Male"}
         res = self.client().post('/actors',
+                                 headers={'Content-Type':
+                                          'application/json',
+                                          'Authorization': 'Bearer {}'
+                                          .format(ep_token)},
                                  content_type='multipart/form-data',
                                  data=fdata)
         data = json.loads(res.data)
@@ -48,6 +63,10 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test adding an actor """
         fdata = {"name": "Sean Connery", "age": "64", "gender": "Male"}
         res = self.client().post('/actors',
+                                 headers={'Content-Type':
+                                          'application/json',
+                                          'Authorization': 'Bearer {}'
+                                          .format(ep_token)},
                                  content_type='multipart/form-data',
                                  data=fdata)
         data = json.loads(res.data)
@@ -58,6 +77,10 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test adding a movies """
         fdata = {"title": "Braveheart", "release_date": "01/01/1980"}
         res = self.client().post('/movies',
+                                 headers={'Content-Type':
+                                          'application/json',
+                                          'Authorization': 'Bearer {}'
+                                          .format(ep_token)},
                                  content_type='multipart/form-data',
                                  data=fdata)
         data = json.loads(res.data)
@@ -68,6 +91,10 @@ class CapstoneKMLTestCase(unittest.TestCase):
         """Test adding a movies """
         fdata = {"title": "Trmple of Doom", "release_date": "01/01/1982"}
         res = self.client().post('/movies',
+                                 headers={'Content-Type':
+                                          'application/json',
+                                          'Authorization': 'Bearer {}'
+                                          .format(ep_token)},
                                  content_type='multipart/form-data',
                                  data=fdata)
         data = json.loads(res.data)
